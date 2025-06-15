@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhe da Disciplina</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cadastro/style.css' %}">
+    <script>
+        function abrirMenuOMR(matricula) {
+            const avaliacao = prompt("Qual avaliação deseja escanear para o aluno " + matricula + "? (1VA, 2VA, 3VA, Final)");
+            if (avaliacao) {
+                alert('Solicitar acesso à câmera para ' + matricula + ' - ' + avaliacao + '. (Aqui será implementado o OMR)');
+                // Aqui você pode implementar a lógica de acesso à câmera no futuro
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        {% if disciplina %}
+            <h2>{{ disciplina.nome }} - {{ disciplina.ano }}</h2>
+            {% if sucesso %}
+                <div class="success">{{ sucesso }}</div>
+            {% endif %}
+            <div class="add-aluno-form">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="aluno">Adicionar aluno à disciplina:</label>
+                    <select name="aluno_matricula" id="aluno" required>
+                        <option value="">Selecione o aluno</option>
+                        {% for aluno in alunos_disponiveis %}
+                            <option value="{{ aluno.matricula }}">{{ aluno.nome }} ({{ aluno.matricula }})</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Adicionar</button>
+                </form>
+            </div>
+            <h3>Alunos da disciplina</h3>
+            {% if alunos_disciplina %}
+                <table class="table">
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>1VA</th>
+                        <th>2VA</th>
+                        <th>3VA</th>
+                        <th>Final</th>
+                        <th>Média Geral</th>
+                        <th>Situação</th>
+                        <th>Ações</th>
+                    </tr>
+                    {% for aluno in alunos_disciplina %}
+                    <tr>
+                        <td>{{ aluno.matricula }}</td>
+                        <td>{{ aluno.nome }}</td>
+                        <td>{{ aluno.nota_1va|default:"-" }}</td>
+                        <td>{{ aluno.nota_2va|default:"-" }}</td>
+                        <td>{{ aluno.nota_3va|default:"-" }}</td>
+                        <td>{{ aluno.nota_final|default:"-" }}</td>
+                        <td>
+                            {% if aluno.media_geral is not None %}
+                                {{ aluno.media_geral|floatformat:2 }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if aluno.situacao == "APV" %}
+                                <span class="apv">APV</span>
+                            {% elif aluno.situacao == "RPV" %}
+                                <span class="rpv">RPV</span>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button type="button" class="btn-omr-mini" onclick="abrirModalOMR('{{ aluno.matricula }}', '{{ aluno.nome }}')">📷</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="subtitle">Nenhum aluno cadastrado nesta disciplina.</div>
+            {% endif %}
+        {% else %}
+            <p>Disciplina não encontrada.</p>
+        {% endif %}
+        <a href="{% url 'index' %}" class="back-link">Voltar ao painel do professor</a>
+    </div>
+
+    <!-- Modal OMR -->
+    <div id="modal-omr-bg">
+        <div id="modal-omr">
+            <div style="display:flex; justify-content:center; align-items:center;">
+                <button class="close-modal" onclick="fecharModalOMR()" style="color:#d32f2f; font-size:2em; background:none; border:none; cursor:pointer; margin-bottom:10px;">×</button>
+            </div>
+            <h3 id="modal-omr-title">Escanear Gabarito</h3>
+            <div id="modal-omr-info"></div>
+            <div style="margin-top:18px;">
+                <button onclick="escanearOMR('1VA')">1VA</button>
+                <button onclick="escanearOMR('2VA')">2VA</button>
+                <button onclick="escanearOMR('3VA')">3VA</button>
+                <button onclick="escanearOMR('Final')">Final</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    let matriculaAtual = '';
+    let nomeAtual = '';
+    function abrirModalOMR(matricula, nome) {
+        matriculaAtual = matricula;
+        nomeAtual = nome;
+        document.getElementById('modal-omr-info').innerHTML = `<b>${nome}</b> (${matricula})<br>Selecione a avaliação para escanear:`;
+        document.getElementById('modal-omr-bg').style.display = 'flex';
+    }
+    function fecharModalOMR() {
+        document.getElementById('modal-omr-bg').style.display = 'none';
+    }
+    function escanearOMR(avaliacao) {
+        fecharModalOMR();
+        alert(`Solicitar acesso à câmera para ${nomeAtual} (${matriculaAtual}) - ${avaliacao}. (Aqui será implementado o OMR)`);
+    }
+    </script>
+</body>
+</html>
