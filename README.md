@@ -32,7 +32,7 @@ sistema-cadastro
 
 1. Clone o repositório:
    ```
-   git clone <URL_DO_REPOSITORIO>
+   git clone 
    ```
 2. Navegue até o diretório do projeto:
    ```
@@ -61,7 +61,3 @@ sistema-cadastro
 - Cadastro de disciplinas
 - Cadastro de alunos
 - Armazenamento temporário de dados em JSON
-
-## Contribuição
-
-Sinta-se à vontade para contribuir com melhorias ou correções. Faça um fork do repositório e envie suas pull requests.
