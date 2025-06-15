@@ -2,32 +2,36 @@
 
 Este projeto é um sistema de cadastro de usuários desenvolvido em Django, onde um professor pode cadastrar disciplinas e alunos, corrigir provas de gabarito utilizando OMR.
 
+#Programas Necessários
+- Python 3.10 (ou superior)
+
 #Passo a passo para usar
 
-1. Clone o repositório:
-   ```
-   git clone 
-   ```
-2. Navegue até o diretório do projeto:
-   ```
-   cd sistema-cadastro
-   ```
-3. Instale as dependências:
-   ```
-   pip install -r requirements.txt
-   ```
+1. Baixe o projeto
 
-#Comandos para usar
+2. Abra o terminal do projeto
 
-1. Execute:
-   ```
-   python manage.py migrate
-   ```
-2. Inicie o servidor:
-   ```
-   python manage.py runserver
-   ```
-3. Acesse o sistema através `http://127.0.0.1:8000/`.
+3. Crie um ambiente virtual
+   - python -m venv venv
+  
+   - venv\Scripts\activate
+
+4. Instalar as dependências
+   - pip install -r requirements.txt
+
+   - pip install django
+     
+5. Migrações do BD
+   
+   - python manage.py migrate
+  
+   - python manage.py createsuperuser
+     
+6. Rode o servidor
+   
+   - python manage.py runserver
+     
+7. Acesse o sistema através `http://127.0.0.1:8000/`.
 
 # Funcionalidades
 
