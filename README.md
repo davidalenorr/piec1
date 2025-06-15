@@ -28,7 +28,7 @@ sistema-cadastro
 └── README.md
 ```
 
-## Instalação
+#Passo a passo para usar
 
 1. Clone o repositório:
    ```
@@ -43,21 +43,22 @@ sistema-cadastro
    pip install -r requirements.txt
    ```
 
-## Uso
+#Comandos para usar
 
-1. Execute as migrações:
+1. Execute:
    ```
    python manage.py migrate
    ```
-2. Inicie o servidor de desenvolvimento:
+2. Inicie o servidor:
    ```
    python manage.py runserver
    ```
-3. Acesse o sistema em seu navegador através de `http://127.0.0.1:8000/`.
+3. Acesse o sistema através `http://127.0.0.1:8000/`.
 
-## Funcionalidades
+# Funcionalidades
 
 - Cadastro de professores
 - Cadastro de disciplinas
 - Cadastro de alunos
 - Armazenamento temporário de dados em JSON
+- Correção de gabarito(OMR)
