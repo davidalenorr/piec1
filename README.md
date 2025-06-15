@@ -1,6 +1,6 @@
 # Sistema de Cadastro de Usuários
 
-Este projeto é um sistema de cadastro de usuários desenvolvido em Django, onde um professor pode cadastrar disciplinas e alunos.
+Este projeto é um sistema de cadastro de usuários desenvolvido em Django, onde um professor pode cadastrar disciplinas e alunos, corrigir provas de gabarito utilizando OMR.
 
 ## Estrutura do Projeto
 
