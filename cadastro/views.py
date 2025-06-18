@@ -5,11 +5,12 @@ import json
 import os
 import re
 
+#Temporario
 TEMP_STORAGE_FILE = 'temp_storage/dados_temp.json'
 
 def home(request):
     return render(request, 'cadastro/home.html')
-
+#Carrega as disciplinas do professor logado e exibe na página inicial
 def index(request):
     data = load_data()
     cpf_professor = request.session.get('usuario')
@@ -21,11 +22,11 @@ def load_data():
         with open(TEMP_STORAGE_FILE, 'r') as file:
             return json.load(file)
     return {'usuarios': [], 'professores': [], 'disciplinas': [], 'alunos': []}
-
+#Para salvar
 def save_data(data):
     with open(TEMP_STORAGE_FILE, 'w') as file:
         json.dump(data, file)
-        
+# FLogin         
 def login_view(request):
     error = None
     if request.method == 'POST':
@@ -119,7 +120,7 @@ def cadastrar_aluno(request):
             save_data(data)
             sucesso = 'Aluno cadastrado com sucesso!'
     return render(request, 'cadastro/cadastrar_aluno.html', {'sucesso': sucesso})
-
+# Detalhe da disciplina
 def detalhe_disciplina(request, disciplina_id):
     data = load_data()
     cpf_professor = request.session.get('usuario')
@@ -192,7 +193,7 @@ def detalhe_disciplina(request, disciplina_id):
         })
     else:
         return render(request, 'cadastro/detalhe_disciplina.html', {'disciplina': None})
-
+# Lista de alunos do professor logado
 def lista_alunos(request):
     data = load_data()
     cpf_professor = request.session.get('usuario')
